@@ -81,19 +81,18 @@ All the best ✨.
 - Initially tried appending only the data received from `/update-sheet-data`, but encountered errors.
 - To avoid frequent requests, I cached the previous database state and compared it with the current state every 5 seconds.
 
-### Biggest Challenge
-
-- I initially tried to use PostgreSQL's LISTEN/NOTIFY feature to detect changes in the database and send them to Google Sheets but faced issues with the Google Sheets API rate limits.
-- I then tried to use WebSockets to send changes from the database to Google Sheets but faced the same rate limit issues.
-- I also implemented polling to detect changes in the database and send them to Google Sheets but tried to avoid frequent requests.
-
-
 ### Day 2
 
 - Successfully implemented one-way synchronization from Google Sheets to the database.
 - The challenge was syncing changes from the database back to Google Sheets.
 - Tried Google Apps Script for this, but faced rate limiting issues.
 - Successfully implemented Triggers in MySQL to detect changes in the database and send them to the Google Sheets API.
+
+### Biggest Challenge
+
+- I initially tried to use PostgreSQL's LISTEN/NOTIFY feature to detect changes in the database and send them to Google Sheets but faced issues with the Google Sheets API rate limits.
+- I then tried to use WebSockets to send changes from the database to Google Sheets but faced the same rate limit issues.
+- I also implemented polling to detect changes in the database and send them to Google Sheets but tried to avoid frequent requests.
 
 
 ## Approaches Tried
