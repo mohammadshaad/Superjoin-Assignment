@@ -62,9 +62,6 @@ All the best ✨.
 
 - Here's a video that explains the project:
 
-  
-- https://github.com/user-attachments/assets/
-
 
 ## Project Timeline
 
