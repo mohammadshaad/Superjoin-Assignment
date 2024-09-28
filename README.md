@@ -82,27 +82,30 @@ All the best ✨.
 - Created an API endpoint for receiving changes from the script and successfully received the data.
 - The challenge was to create the database schema and synchronize changes with the database.
 - Initially tried appending only the data received from `/update-sheet-data`, but encountered errors.
-- Successfully implemented Triggers in MySQL to detect changes in the database and send them to the Google Sheets API.
+- To avoid frequent requests, I cached the previous database state and compared it with the current state every 5 seconds.
 
 ### Biggest Challenge
 
-- I initially used MySQL triggers to detect changes in the database, but faced permission issues on Azure MySQL (no `sys-exec` permissions), which led to errors.
-- This caused database corruption, and I had to switch to a polling approach.
-- To avoid frequent requests, I cached the previous database state and compared it with the current state every 5 seconds.
+- I initially tried to use PostgreSQL's LISTEN/NOTIFY feature to detect changes in the database and send them to Google Sheets but faced issues with the Google Sheets API rate limits.
+- I then tried to use WebSockets to send changes from the database to Google Sheets but faced the same rate limit issues.
+- I also implemented polling to detect changes in the database and send them to Google Sheets but tried to avoid frequent requests.
+
 
 ### Day 2
 
 - Successfully implemented one-way synchronization from Google Sheets to the database.
 - The challenge was syncing changes from the database back to Google Sheets.
 - Tried Google Apps Script for this, but faced rate limiting issues.
-- Experimented with Parabola.io for sending data to Google Sheets via a flow, though it had manual execution limits and free trial restrictions.
+- Successfully implemented Triggers in MySQL to detect changes in the database and send them to the Google Sheets API.
+
 
 ## Approaches Tried
 
-- **Polling**: Success
 - **OAuth**: Failure (due to verification issues, switched to a service account)
 - **WebSockets**: Failure (due to Google Sheets API rate limits)
-- **Google Apps Script**: Success
+- **Polling**: Success
+- **Google Sheets API**: Success
+- **Triggers in MySQL**: Success
 
 ---
 
@@ -159,7 +162,6 @@ Copyassignment/
 
 - In Google Sheets, go to Extensions > Apps Script
 - Copy and paste this App Script as a .gs file
-- https://drive.google.com/file/d/1bRjV65iyq-dcLLgknoNOmgPrG0_Xwrb_/view?usp=drive_link
 - Add an onEdit trigger and deploy the project
 
 ---
