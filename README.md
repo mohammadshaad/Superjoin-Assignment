@@ -140,7 +140,7 @@ DB_NAME=your_db_name
 - The project structure should look like this:
 
 ```
-Copyassignment/
+vit-mohammadshaad/
 │
 ├── src/
 │   ├── config.js
@@ -162,128 +162,7 @@ Copyassignment/
 
 - In Google Sheets, go to Extensions > Apps Script
 - Copy and paste this App Script as a .gs file
-- Add an onEdit trigger and deploy the project
-
----
-
-# Assignment Overview
-
-### Title
-
-Real-time Data Sync between Google Sheets and a Database
-
-### Objective
-
-Build a solution that enables real-time synchronization of data between a Google Sheet and a specified database (e.g., MySQL, PostgreSQL). The solution should detect changes in the Google Sheet and update the database accordingly, and vice versa.
-
-### Problem Statement
-
-Many businesses use Google Sheets for collaborative data management and databases for more robust and scalable data storage. However, keeping the data synchronised between Google Sheets and databases is often a manual and error-prone process. Your task is to develop a solution that automates this synchronisation, ensuring that changes in one are reflected in the other in real-time.
-
-### Requirements:
-
-1. Real-time Synchronisation
-
-- Implement a system that detects changes in Google Sheets and updates the database accordingly.
-- Similarly, detect changes in the database and update the Google Sheet.
-
-2. CRUD Operations
-
-- Ensure the system supports Create, Read, Update, and Delete operations for both Google Sheets and the database.
-- Maintain data consistency across both platforms.
-
-### Optional Challenges (This is not mandatory):
-
-1. Conflict Handling
-
-- Develop a strategy to handle conflicts that may arise when changes are made simultaneously in both Google Sheets and the database.
-- Provide options for conflict resolution (e.g., last write wins, user-defined rules).
-
-2. Scalability:
-
-- Ensure the solution can handle large datasets and high-frequency updates without performance degradation.
-- Optimize for scalability and efficiency.
-
-### Implementation Steps:
-
-1. Setup
-
-- Choose a database (e.g., MySQL, PostgreSQL) and set up a test environment.
-- Create a Google Sheet with sample data for synchronization.
-
-2. Google Sheets API
-
-- Use the Google Sheets API to read and write data from/to Google Sheets.
-- Implement a mechanism to detect changes in the Google Sheet (e.g., using onEdit triggers or polling).
-
-3. Database Integration
-
-- Establish a connection to the database and implement CRUD operations.
-- Set up triggers or listeners to detect changes in the database.
-
-4. Synchronization Logic
-
-- Develop the core logic to sync data between Google Sheets and the database.
-- Ensure bi-directional synchronization with real-time updates.
-
-5. Conflict Resolution
-
-- Implement a conflict resolution strategy.
-- Provide options for different conflict resolution methods and allow users to configure them.
-
-### Submission Guidelines:
-
-1. Git Repository:
-
-- Use Git for version control and commit your progress regularly.
-- Ensure the repository is well-organized with clear documentation.
-
-2. Code Quality:
-
-- Follow good coding practices, including semantic variable naming and code comments.
-- Write clean, readable, and well-structured code.
-
-3. Documentation:
-
-- Provide a README file explaining your approach, challenges faced, and how to run the project.
-- Include any additional notes or comments for the evaluators.
-
-4. Video Demonstration:
-
-- Record a video (max 120 seconds) showing the tool in action.
-- Explain your biggest blocker and how you overcame it during the development process.
-
-5. Time:
-
-- The time to submission is 2 days from the day of accepting the assignment. For any queries, reach out to techhiring@superjoin.ai
-
-### SQL Query to create the Trigger for the transactions:
-
-```sql
-DELIMITER //
-
-CREATE TRIGGER after_transaction_insert
-AFTER INSERT ON transactions
-FOR EACH ROW
-BEGIN
-    DECLARE json_data JSON;
-    SET json_data = JSON_OBJECT(
-        'transaction_id', NEW.transaction_id,
-        'amount', NEW.amount,
-        'currency', NEW.currency,
-        'payment_method', NEW.payment_method,
-        'purchase_date', NEW.purchase_date
-    );
-
-    -- Call the external URL to notify the application
-    SELECT
-        sys_exec(CONCAT('curl -X POST http://localhost:3000/update-transaction -d ''', json_data, ''' -H "Content-Type: application/json"'));
-END; //
-
-DELIMITER ;
-```
-
-### AppScript Code to detect changes in Google Sheets:
+- AppScript Code to detect changes in Google Sheets:
 
 ```javascript
 // Function to handle GET requests
@@ -387,3 +266,36 @@ function scheduledSync() {
   }
 }
 ```
+
+- Add an onEdit trigger and deploy the project as a web app.
+
+---
+
+### SQL Query to create the Trigger for the transactions:
+
+```sql
+DELIMITER //
+
+CREATE TRIGGER after_transaction_insert
+AFTER INSERT ON transactions
+FOR EACH ROW
+BEGIN
+    DECLARE json_data JSON;
+    SET json_data = JSON_OBJECT(
+        'transaction_id', NEW.transaction_id,
+        'amount', NEW.amount,
+        'currency', NEW.currency,
+        'payment_method', NEW.payment_method,
+        'purchase_date', NEW.purchase_date
+    );
+
+    -- Call the external URL to notify the application
+    SELECT
+        sys_exec(CONCAT('curl -X POST http://localhost:3000/update-transaction -d ''', json_data, ''' -H "Content-Type: application/json"'));
+END; //
+
+DELIMITER ;
+```
+
+### AppScript Code to detect changes in Google Sheets:
+
