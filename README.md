@@ -114,13 +114,13 @@ All the best ✨.
 1. Clone the repository.
 2. Install dependencies:
 
-   ```bash
-   npm install
-   ```
+```bash
+  npm install
+```
 
 3. Create a .env file and enter the following:
 
-```
+```bash
 CopyPORT=3000
 WS_PORT=8080
 SPREADSHEET_ID=1Ci63bTCrhe6Vp8TWjiGbbrEbXgCiJds98I5W_7lE7Ew
