@@ -263,7 +263,7 @@ function scheduledSync() {
 }
 ```
 
-- Add an onEdit trigger and deploy the project as a web app.
+- Add an `on edit` trigger and deploy the project as a web app.
 
 ---
 
