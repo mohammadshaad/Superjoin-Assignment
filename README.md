@@ -289,5 +289,14 @@ BEGIN
 END;
 ```
 
-### AppScript Code to detect changes in Google Sheets:
+---
+
+### Conclusion
+
+- The project was challenging due to the real-time synchronization requirement.
+- The project could be improved by using Pub/Sub or WebSockets for real-time synchronization.
+- I enjoyed working on this project and look forward to feedback.
+
+### Thank you! 🚀
+
 
