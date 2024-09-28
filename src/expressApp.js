@@ -282,4 +282,28 @@ expressApp.delete("/clear-data", async (req, res) => {
   }
 });
 
+expressApp.post("/update-transaction", async (req, res) => {
+  try {
+      const transactionData = req.body;
+
+      // Process the transaction data and insert/update in the database
+      await insertData(
+          transactionData.transaction_id,
+          transactionData.amount,
+          transactionData.currency,
+          transactionData.payment_method,
+          transactionData.purchase_date
+      );
+
+      // Optionally, sync the updated data to Google Sheets here
+      await pushDataToGoogleSheets([transactionData]);
+
+      res.status(200).json({ message: "Transaction data received and processed." });
+  } catch (error) {
+      console.error("Error processing transaction data:", error);
+      res.status(500).json({ message: "Failed to process transaction data." });
+  }
+});
+
+
 module.exports = expressApp;
