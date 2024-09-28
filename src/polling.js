@@ -23,6 +23,6 @@ async function pollForUpdates() {
 }
 
 // Schedule polling every 1 second
-setInterval(pollForUpdates, 1000); // 1000 milliseconds = 1 second
+// setInterval(pollForUpdates, 1000);
 
 console.log("Polling started. Checking for updates every second.");
