@@ -59,4 +59,29 @@ We're available at techhiring@superjoin.ai for all queries.
 All the best ✨.
 
 ## Developer's Section
-*Add your video here, and your approach to the problem (optional). Leave some comments for us here if you want, we will be reading this :)*
+
+### SQL Query to create the Trigger for the transactions:
+
+```sql
+DELIMITER //
+
+CREATE TRIGGER after_transaction_insert
+AFTER INSERT ON transactions
+FOR EACH ROW
+BEGIN
+    DECLARE json_data JSON;
+    SET json_data = JSON_OBJECT(
+        'transaction_id', NEW.transaction_id,
+        'amount', NEW.amount,
+        'currency', NEW.currency,
+        'payment_method', NEW.payment_method,
+        'purchase_date', NEW.purchase_date
+    );
+
+    -- Call the external URL to notify the application
+    SELECT
+        sys_exec(CONCAT('curl -X POST http://localhost:3000/update-transaction -d ''', json_data, ''' -H "Content-Type: application/json"'));
+END; //
+
+DELIMITER ;
+```
