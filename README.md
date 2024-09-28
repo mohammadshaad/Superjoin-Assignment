@@ -270,8 +270,6 @@ function scheduledSync() {
 ### SQL Query to create the Trigger for the transactions:
 
 ```sql
-DELIMITER //
-
 CREATE TRIGGER after_transaction_insert
 AFTER INSERT ON transactions
 FOR EACH ROW
@@ -288,9 +286,7 @@ BEGIN
     -- Call the external URL to notify the application
     SELECT
         sys_exec(CONCAT('curl -X POST http://localhost:3000/update-transaction -d ''', json_data, ''' -H "Content-Type: application/json"'));
-END; //
-
-DELIMITER ;
+END;
 ```
 
 ### AppScript Code to detect changes in Google Sheets:
